@@ -1,0 +1,76 @@
+/*
+ * Copyright (c) 2010-2026 Contributors to the openHAB project
+ *
+ * See the NOTICE file(s) distributed with this work for additional
+ * information.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ */
+package org.openhab.binding.kseniasecurity.internal;
+
+import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.openhab.core.thing.ThingTypeUID;
+
+/**
+ * The {@link KseniaBindingConstants} class defines common constants, which are
+ * used across the whole binding.
+ *
+ * @author Michele Pattera - Initial contribution
+ */
+@NonNullByDefault
+public class KseniaBindingConstants {
+
+    public static final String BINDING_ID = "kseniasecurity";
+
+    public static final ThingTypeUID THING_TYPE_PANEL = new ThingTypeUID(BINDING_ID, "panel");
+    public static final ThingTypeUID THING_TYPE_PARTITION = new ThingTypeUID(BINDING_ID, "partition");
+    public static final ThingTypeUID THING_TYPE_ZONE = new ThingTypeUID(BINDING_ID, "zone");
+
+    // Panel channels
+    public static final String CHANNEL_PANEL_SYSTEM_LANG = "systemLang";
+    public static final String CHANNEL_PANEL_SESSION_STATE = "sessionState";
+    public static final String CHANNEL_PANEL_FREEZE_STATE = "freezeState";
+    public static final String CHANNEL_PANEL_CONNECTION_TYPE = "connectionType";
+    public static final String CHANNEL_PANEL_FW_VERSION = "firmwareVersion";
+    public static final String CHANNEL_PANEL_WS_VERSION = "webserverVersion";
+
+    // Partition channels
+    public static final String CHANNEL_PARTITION_DESCRIPTION = "description";
+    public static final String CHANNEL_PARTITION_REALTIME_STATE = "realtimeState";
+    public static final String CHANNEL_PARTITION_DISARM_STATUS = "disarmStatus";
+    public static final String CHANNEL_PARTITION_ARM_STATUS = "armStatus";
+    public static final String CHANNEL_PARTITION_ENTRYDELAY_STATUS = "entryDelayStatus";
+    public static final String CHANNEL_PARTITION_EXITDELAY_STATUS = "exitDelayStatus";
+    public static final String CHANNEL_PARTITION_DELAY_TIMER = "delayTimer";
+    public static final String CHANNEL_PARTITION_ALARM_STATE = "alarmState";
+    public static final String CHANNEL_PARTITION_ALARM_STATUS = "alarmStatus";
+    public static final String CHANNEL_PARTITION_ALARM_MEMORY = "alarmMemory";
+    public static final String CHANNEL_PARTITION_TAMPER_STATE = "tamperState";
+    public static final String CHANNEL_PARTITION_TAMPER_STATUS = "tamperStatus";
+    public static final String CHANNEL_PARTITION_TAMPER_MEMORY = "tamperMemory";
+
+    // Zone channels
+    public static final String CHANNEL_ZONE_DESCRIPTION = "description";
+    public static final String CHANNEL_ZONE_REALTIME_STATE = "realtimeState";
+    public static final String CHANNEL_ZONE_REST_STATUS = "restStatus";
+    public static final String CHANNEL_ZONE_ALARM_STATUS = "alarmStatus";
+    public static final String CHANNEL_ZONE_FAULT_STATUS = "faultStatus";
+    public static final String CHANNEL_ZONE_MASKING_STATUS = "maskingStatus";
+    public static final String CHANNEL_ZONE_TAMPER_STATUS = "tamperStatus";
+    public static final String CHANNEL_ZONE_ERROR_STATUS = "errorStatus";
+    public static final String CHANNEL_ZONE_BYPASS_STATE = "bypassState";
+    public static final String CHANNEL_ZONE_BYPASS_STATUS = "bypassStatus";
+    public static final String CHANNEL_ZONE_ALARM_STATE = "alarmState";
+    public static final String CHANNEL_ZONE_ALARM_CYCLE = "alarmCycle";
+    public static final String CHANNEL_ZONE_ALARM_MEMORY = "alarmMemory";
+    public static final String CHANNEL_ZONE_TAMPER_STATE = "tamperState";
+    public static final String CHANNEL_ZONE_TAMPER_CYCLE = "tamperCycle";
+    public static final String CHANNEL_ZONE_TAMPER_MEMORY = "tamperMemory";
+    public static final String CHANNEL_ZONE_FAULT_STATE = "faultState";
+    public static final String CHANNEL_ZONE_FAULT_CYCLE = "faultCycle";
+    public static final String CHANNEL_ZONE_FAULT_MEMORY = "faultMemory";
+}

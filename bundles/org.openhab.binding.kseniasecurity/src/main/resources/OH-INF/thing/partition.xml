@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions bindingId="kseniasecurity"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:thing="https://openhab.org/schemas/thing-description/v1.0.0"
+	xsi:schemaLocation="https://openhab.org/schemas/thing-description/v1.0.0 https://openhab.org/schemas/thing-description-1.0.0.xsd">
+
+	<thing-type id="partition">
+		<supported-bridge-type-refs>
+			<bridge-type-ref id="panel"/>
+		</supported-bridge-type-refs>
+
+		<label>Ksenia Security Partition</label>
+		<description>A partition of the alarm control panel</description>
+		<semantic-equipment-tag>AlarmSystem</semantic-equipment-tag>
+
+		<channels>
+			<channel id="description" typeId="textStatusChannel">
+				<label>Description</label>
+				<description>The partition label</description>
+			</channel>
+			<channel id="realtimeState" typeId="textStatusChannel">
+				<label>Realtime state</label>
+				<description>Realtime state of the partition:
+					D = Disarm,
+					DA = Delayed Arm,
+					IA = Immediate Arm,
+					IT = Entry delay,
+					OT =
+					Exit delay
+				</description>
+			</channel>
+			<channel id="armStatus" typeId="switchStatusChannel">
+				<label>Arm status</label>
+				<description>Arm status of the partition</description>
+			</channel>
+			<channel id="entryDelayStatus" typeId="switchStatusChannel">
+				<label>Entry delay status</label>
+				<description>Entry delay status of the partition</description>
+			</channel>
+			<channel id="exitDelayStatus" typeId="switchStatusChannel">
+				<label>Exit delay status</label>
+				<description>Exit delay status of the partition</description>
+			</channel>
+			<channel id="delayTimer" typeId="textStatusChannel">
+				<label>Delay timer</label>
+				<description>Seconds remaining for the actual delay timer</description>
+			</channel>
+			<channel id="alarmState" typeId="textStatusChannel">
+				<label>Alarm state</label>
+				<description>Alarm status:
+					OK = inactive,
+					AL = alarm active,
+					AM = alarm memory
+				</description>
+			</channel>
+			<channel id="tamperState" typeId="textStatusChannel">
+				<label>Tamper state</label>
+				<description>Tamper status:
+					OK = inactive,
+					TAM = tamper active,
+					TM = tamper memory
+				</description>
+			</channel>
+			<channel id="command" typeId="textCommandChannel">
+				<label>Command</label>
+				<description>Send a command using format COMMAND[:PIN]. Command list:
+					ARM,
+					ARM_IMMEDIATE,
+					DISARM
+				</description>
+			</channel>
+		</channels>
+
+		<config-description>
+			<parameter name="id" type="integer" min="1" required="true">
+				<label>Partition ID</label>
+				<description>Numeric identifier of the partition</description>
+			</parameter>
+		</config-description>
+	</thing-type>
+
+	<channel-type id="textStatusChannel">
+		<item-type>String</item-type>
+		<label>Text</label>
+		<description>Generic text status channel</description>
+		<state readOnly="true"/>
+	</channel-type>
+	<channel-type id="contactStatusChannel">
+		<item-type>Contact</item-type>
+		<label>Open/Close status</label>
+		<description>Generic Open/Close status channel</description>
+		<state readOnly="true"/>
+	</channel-type>
+	<channel-type id="switchStatusChannel">
+		<item-type>Switch</item-type>
+		<label>On/Off status</label>
+		<description>Generic On/Off status channel</description>
+		<state readOnly="true"/>
+	</channel-type>
+	<channel-type id="textCommandChannel" advanced="false">
+		<item-type>String</item-type>
+		<label>Text</label>
+		<description>Generic text command channel</description>
+	</channel-type>
+</thing:thing-descriptions>

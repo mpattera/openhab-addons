@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions bindingId="kseniasecurity"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:thing="https://openhab.org/schemas/thing-description/v1.0.0"
+	xsi:schemaLocation="https://openhab.org/schemas/thing-description/v1.0.0 https://openhab.org/schemas/thing-description-1.0.0.xsd">
+
+	<thing-type id="zone">
+		<supported-bridge-type-refs>
+			<bridge-type-ref id="panel"/>
+		</supported-bridge-type-refs>
+
+		<label>Ksenia Security Zone</label>
+		<description>A zone of the alarm control panel</description>
+		<semantic-equipment-tag>AlarmSystem</semantic-equipment-tag>
+
+		<channels>
+			<channel id="description" typeId="textStatusChannel">
+				<label>Description</label>
+				<description>The zone label</description>
+			</channel>
+			<channel id="realtimeState" typeId="textStatusChannel">
+				<label>Realtime state</label>
+				<description>Realtime state of the zone:
+					R = Rest,
+					A = Alarm,
+					FM = Fault/Masking,
+					T = Tamper,
+					E = Error
+				</description>
+			</channel>
+			<channel id="realtimeStatus" typeId="contactStatusChannel">
+				<label>Realtime status</label>
+				<description>Realtime status of the zone</description>
+			</channel>
+			<channel id="faultStatus" typeId="switchStatusChannel">
+				<label>Fault status</label>
+				<description>Fault status of the zone</description>
+			</channel>
+			<channel id="maskingStatus" typeId="switchStatusChannel">
+				<label>Masking status</label>
+				<description>Masking status of the zone</description>
+			</channel>
+			<channel id="tamperStatus" typeId="switchStatusChannel">
+				<label>Tamper status</label>
+				<description>Tamper status of the zone</description>
+			</channel>
+			<channel id="errorStatus" typeId="switchStatusChannel">
+				<label>Error status</label>
+				<description>Error status of the zone</description>
+			</channel>
+			<channel id="bypassState" typeId="textStatusChannel">
+				<label>Bypass state</label>
+				<description>Bypass state of the zone:
+					NO = not bypassed,
+					AUTO = auto-bypassed,
+					MAN_I = bypassed during arming,
+					MAN_M =
+					bypassed via menu
+				</description>
+			</channel>
+			<channel id="bypassStatus" typeId="switchStatusChannel">
+				<label>Bypass status</label>
+				<description>Bypass status of the zone</description>
+			</channel>
+			<channel id="alarmState" typeId="textStatusChannel">
+				<label>Alarm state</label>
+				<description>Alarm status:
+					N = inactive,
+					C = alarm active,
+					M = alarm memor
+				</description>
+			</channel>
+			<channel id="tamperState" typeId="textStatusChannel">
+				<label>Tamper state</label>
+				<description>Tamper status:
+					N = inactive,
+					C = tamper active,
+					M = tamper memory
+				</description>
+			</channel>
+			<channel id="faultMemory" typeId="textStatusChannel">
+				<label>Fault/Masking memory</label>
+				<description>Fault/Masking memory status:
+					F = false,
+					T = true
+				</description>
+			</channel>
+		</channels>
+
+		<config-description>
+			<parameter name="id" type="integer" min="1" required="true">
+				<label>Zone ID</label>
+				<description>Numeric identifier of the zone</description>
+			</parameter>
+		</config-description>
+	</thing-type>
+
+	<channel-type id="textStatusChannel">
+		<item-type>String</item-type>
+		<label>Text</label>
+		<description>Generic text status channel</description>
+		<state readOnly="true"/>
+	</channel-type>
+	<channel-type id="contactStatusChannel">
+		<item-type>Contact</item-type>
+		<label>Open/Close status</label>
+		<description>Generic Open/Close status channel</description>
+		<state readOnly="true"/>
+	</channel-type>
+	<channel-type id="switchStatusChannel">
+		<item-type>Switch</item-type>
+		<label>On/Off status</label>
+		<description>Generic On/Off status channel</description>
+		<state readOnly="true"/>
+	</channel-type>
+</thing:thing-descriptions>
