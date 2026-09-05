@@ -16,20 +16,47 @@ import java.nio.charset.StandardCharsets;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 
+/**
+ * Calculates the CRC-16 values used by the Lares 4.0 protocol.
+ *
+ * @author Michele Pattera - Initial contribution
+ */
 @NonNullByDefault
-public class CRC16 {
+public final class CRC16 {
 
     private static final int POLY_CCITT = 0x1021;
-    private static final int POLY_MODBUS = 0x8005;
 
+    private CRC16() {
+    }
+
+    /**
+     * Calculates a CRC using the protocol's CCITT polynomial.
+     *
+     * @param data the text to checksum
+     * @return the formatted CRC value
+     */
     public static String calculate(String data) {
         return calculate(data, POLY_CCITT);
     }
 
+    /**
+     * Calculates a CRC for text using a supplied polynomial.
+     *
+     * @param data the text to checksum
+     * @param polynomial the CRC polynomial
+     * @return the formatted CRC value
+     */
     public static String calculate(String data, int polynomial) {
         return String.format("0x%04X", calculate(data.getBytes(StandardCharsets.UTF_8), polynomial));
     }
 
+    /**
+     * Calculates a CRC for bytes using a supplied polynomial.
+     *
+     * @param data the bytes to checksum
+     * @param polynomial the CRC polynomial
+     * @return the CRC value
+     */
     public static short calculate(byte[] data, int polynomial) {
         int crc = 0xFFFF;
 

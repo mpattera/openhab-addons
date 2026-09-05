@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions bindingId="kseniasecurity"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:thing="https://openhab.org/schemas/thing-description/v1.0.0"
+	xsi:schemaLocation="https://openhab.org/schemas/thing-description/v1.0.0 https://openhab.org/schemas/thing-description-1.0.0.xsd">
+
+	<bridge-type id="panel">
+		<label>Ksenia Security Panel</label>
+		<description>The alarm control panel</description>
+		<semantic-equipment-tag>AlarmSystem</semantic-equipment-tag>
+
+		<channels>
+			<channel id="systemLang" typeId="textStatusChannel">
+				<label>System language</label>
+				<description>Language configured for the panel</description>
+			</channel>
+			<channel id="sessionState" typeId="textStatusChannel">
+				<label>Session state</label>
+				<description>Panel programming session state</description>
+			</channel>
+			<channel id="freezeState" typeId="textStatusChannel">
+				<label>Freeze state</label>
+				<description>System freeze state</description>
+			</channel>
+			<channel id="firmwareVersion" typeId="textStatusChannel">
+				<label>Firmware version</label>
+				<description>Actual version of the panel software</description>
+			</channel>
+			<channel id="webserverVersion" typeId="textStatusChannel">
+				<label>Web server version</label>
+				<description>Actual version of the panel web server software</description>
+			</channel>
+			<channel id="diagnosticRead" typeId="diagnosticRead"/>
+		</channels>
+
+		<config-description>
+			<parameter name="host" type="text" required="true">
+				<label>Host</label>
+				<description>IP address or hostname of the panel</description>
+			</parameter>
+			<parameter name="port" type="integer" min="1" max="65535" required="false">
+				<label>Port</label>
+				<description>Port of the panel service</description>
+				<default>443</default>
+			</parameter>
+			<parameter name="useSecureConnection" type="boolean" required="false">
+				<label>Use secure connection</label>
+				<description>Use a secure connection to the panel</description>
+				<default>true</default>
+			</parameter>
+			<parameter name="trustSelfSignedCertificate" type="boolean" required="false">
+				<label>Trust self-signed certificate</label>
+				<description>Accept the self-signed certificate provided by the panel</description>
+				<default>true</default>
+			</parameter>
+			<parameter name="reconnectInterval" type="integer" min="1" required="false">
+				<label>Reconnect interval</label>
+				<description>Seconds to wait before attempting to reconnect</description>
+				<default>60</default>
+			</parameter>
+			<parameter name="responseTimeout" type="integer" min="1" required="false">
+				<label>Response timeout</label>
+				<description>Seconds to wait for a command response; increase for slow connections</description>
+				<default>60</default>
+				<advanced>true</advanced>
+			</parameter>
+			<parameter name="loginType" type="text" required="false">
+				<label>Login type</label>
+				<description>Authentication role used to connect to the panel</description>
+				<default>SUPERVISOR</default>
+				<options>
+					<option value="USER">User</option>
+					<option value="SUPERVISOR">Supervisor</option>
+				</options>
+			</parameter>
+			<parameter name="loginCode" type="text" required="true">
+				<label>Login code</label>
+				<description>Code for the selected authentication role</description>
+				<context>password</context>
+			</parameter>
+		</config-description>
+	</bridge-type>
+
+	<thing-type id="partition">
+		<supported-bridge-type-refs>
+			<bridge-type-ref id="panel"/>
+		</supported-bridge-type-refs>
+
+		<label>Ksenia Security Partition</label>
+		<description>A partition managed by the panel</description>
+		<semantic-equipment-tag>AlarmSystem</semantic-equipment-tag>
+
+		<channels>
+			<channel id="description" typeId="descriptionStatus"/>
+			<channel id="realtimeState" typeId="partitionRealtimeState"/>
+			<channel id="armStatus" typeId="switchStatusChannel">
+				<label>Arm status</label>
+				<description>On while the partition is armed</description>
+			</channel>
+			<channel id="entryDelayStatus" typeId="switchStatusChannel">
+				<label>Entry delay status</label>
+				<description>On while the entry delay is active</description>
+			</channel>
+			<channel id="exitDelayStatus" typeId="switchStatusChannel">
+				<label>Exit delay status</label>
+				<description>On while the exit delay is active</description>
+			</channel>
+			<channel id="delayRemaining" typeId="delayRemaining"/>
+			<channel id="alarmState" typeId="partitionEventState">
+				<label>Alarm state</label>
+				<description>Alarm event state reported for this partition</description>
+			</channel>
+			<channel id="alarmActive" typeId="switchStatusChannel">
+				<label>Alarm active</label>
+				<description>On while the partition reports an active alarm event</description>
+			</channel>
+			<channel id="alarmMemory" typeId="switchStatusChannel">
+				<label>Alarm memory</label>
+				<description>On while the partition reports an alarm memory</description>
+			</channel>
+			<channel id="tamperState" typeId="partitionEventState">
+				<label>Tamper state</label>
+				<description>Tamper event state reported for this partition</description>
+			</channel>
+			<channel id="tamperActive" typeId="switchStatusChannel">
+				<label>Tamper active</label>
+				<description>On while the partition reports an active tamper event</description>
+			</channel>
+			<channel id="tamperMemory" typeId="switchStatusChannel">
+				<label>Tamper memory</label>
+				<description>On while the partition reports a tamper memory</description>
+			</channel>
+		</channels>
+
+		<config-description>
+			<parameter name="id" type="integer" min="1" required="true">
+				<label>Partition ID</label>
+				<description>Numeric identifier of the partition</description>
+			</parameter>
+		</config-description>
+	</thing-type>
+
+	<thing-type id="zone">
+		<supported-bridge-type-refs>
+			<bridge-type-ref id="panel"/>
+		</supported-bridge-type-refs>
+
+		<label>Ksenia Security Zone</label>
+		<description>A zone managed by the panel</description>
+		<semantic-equipment-tag>AlarmSystem</semantic-equipment-tag>
+
+		<channels>
+			<channel id="description" typeId="descriptionStatus"/>
+			<channel id="realtimeState" typeId="zoneRealtimeState"/>
+			<channel id="restStatus" typeId="switchStatusChannel">
+				<label>Rest status</label>
+				<description>On while the zone is at rest</description>
+			</channel>
+			<channel id="alarmStatus" typeId="switchStatusChannel">
+				<label>Alarm status</label>
+				<description>On while the zone is in alarm</description>
+			</channel>
+			<channel id="faultStatus" typeId="switchStatusChannel">
+				<label>Fault status</label>
+				<description>On while the zone is faulted</description>
+			</channel>
+			<channel id="tamperStatus" typeId="switchStatusChannel">
+				<label>Tamper status</label>
+				<description>On while the zone is tampered</description>
+			</channel>
+			<channel id="errorStatus" typeId="switchStatusChannel">
+				<label>Error status</label>
+				<description>On while the zone is in error</description>
+			</channel>
+			<channel id="bypassState" typeId="zoneBypassState"/>
+			<channel id="bypassStatus" typeId="switchStatusChannel">
+				<label>Bypass status</label>
+				<description>On while the zone is bypassed</description>
+			</channel>
+			<channel id="alarmState" typeId="zoneEventState">
+				<label>Alarm state</label>
+				<description>Alarm event state reported for this zone</description>
+			</channel>
+			<channel id="alarmActive" typeId="switchStatusChannel">
+				<label>Alarm active</label>
+				<description>On while the zone reports an active alarm event</description>
+			</channel>
+			<channel id="alarmMemory" typeId="switchStatusChannel">
+				<label>Alarm memory</label>
+				<description>On while the zone reports an alarm memory</description>
+			</channel>
+			<channel id="tamperState" typeId="zoneEventState">
+				<label>Tamper state</label>
+				<description>Tamper event state reported for this zone</description>
+			</channel>
+			<channel id="tamperActive" typeId="switchStatusChannel">
+				<label>Tamper active</label>
+				<description>On while the zone reports an active tamper event</description>
+			</channel>
+			<channel id="tamperMemory" typeId="switchStatusChannel">
+				<label>Tamper memory</label>
+				<description>On while the zone reports a tamper memory</description>
+			</channel>
+			<channel id="faultState" typeId="textStatusChannel">
+				<label>Fault state</label>
+				<description>Current fault state reported for this zone</description>
+			</channel>
+			<channel id="faultMemory" typeId="switchStatusChannel">
+				<label>Fault memory</label>
+				<description>On while the zone reports a fault memory</description>
+			</channel>
+		</channels>
+
+		<config-description>
+			<parameter name="id" type="integer" min="1" required="true">
+				<label>Zone ID</label>
+				<description>Numeric identifier of the zone</description>
+			</parameter>
+		</config-description>
+	</thing-type>
+
+	<channel-type id="textStatusChannel">
+		<item-type>String</item-type>
+		<label>Text status</label>
+		<description>Read-only text channel</description>
+		<state readOnly="true"/>
+	</channel-type>
+
+	<channel-type id="switchStatusChannel">
+		<item-type>Switch</item-type>
+		<label>Status</label>
+		<description>Read-only on/off channel</description>
+		<state readOnly="true"/>
+	</channel-type>
+
+	<channel-type id="descriptionStatus">
+		<item-type>String</item-type>
+		<label>Description</label>
+		<description>Label configured for this entity</description>
+		<state readOnly="true"/>
+	</channel-type>
+
+	<channel-type id="diagnosticRead" advanced="true">
+		<item-type>String</item-type>
+		<label>Protocol diagnostic read</label>
+		<description>Reads any payload type, optionally followed by range start and end; logs the response at TRACE with
+			sensitive fields redacted</description>
+		<state readOnly="false"/>
+	</channel-type>
+
+	<channel-type id="partitionRealtimeState">
+		<item-type>String</item-type>
+		<label>Realtime state</label>
+		<description>Current realtime state reported for a partition</description>
+		<state readOnly="true">
+			<options>
+				<option value="DISARMED">Disarmed</option>
+				<option value="ARMED_DELAYED">Armed with delay</option>
+				<option value="ARMED_IMMEDIATE">Armed without delay</option>
+				<option value="ENTRY_DELAY">Entry delay</option>
+				<option value="EXIT_DELAY">Exit delay</option>
+				<option value="UNKNOWN">Unknown</option>
+			</options>
+		</state>
+	</channel-type>
+
+	<channel-type id="partitionEventState">
+		<item-type>String</item-type>
+		<label>Event state</label>
+		<description>Current event state reported for a partition</description>
+		<state readOnly="true">
+			<options>
+				<option value="INACTIVE">Inactive</option>
+				<option value="ACTIVE">Active</option>
+				<option value="MEMORY">Memory</option>
+				<option value="UNKNOWN">Unknown</option>
+			</options>
+		</state>
+	</channel-type>
+
+	<channel-type id="delayRemaining">
+		<item-type unitHint="s">Number:Time</item-type>
+		<label>Remaining delay</label>
+		<description>Time remaining in the current delay</description>
+		<state readOnly="true"/>
+	</channel-type>
+
+	<channel-type id="zoneRealtimeState">
+		<item-type>String</item-type>
+		<label>Realtime state</label>
+		<description>Current realtime state reported for a zone</description>
+		<state readOnly="true">
+			<options>
+				<option value="REST">Rest</option>
+				<option value="ALARM">Alarm</option>
+				<option value="FAULT">Fault</option>
+				<option value="TAMPER">Tamper</option>
+				<option value="ERROR">Error</option>
+				<option value="UNKNOWN">Unknown</option>
+			</options>
+		</state>
+	</channel-type>
+
+	<channel-type id="zoneBypassState">
+		<item-type>String</item-type>
+		<label>Bypass mode</label>
+		<description>Current bypass state reported for a zone</description>
+		<state readOnly="true">
+			<options>
+				<option value="NOT_BYPASSED">Not bypassed</option>
+				<option value="AUTO_BYPASSED">Automatically bypassed</option>
+				<option value="MANUAL_BYPASS_DURING_ARMING">Manually bypassed while arming</option>
+				<option value="MANUAL_BYPASS">Manually bypassed</option>
+				<option value="UNKNOWN">Unknown</option>
+			</options>
+		</state>
+	</channel-type>
+
+	<channel-type id="zoneEventState">
+		<item-type>String</item-type>
+		<label>Event state</label>
+		<description>Current event state reported for a zone</description>
+		<state readOnly="true">
+			<options>
+				<option value="INACTIVE">Inactive</option>
+				<option value="ACTIVE">Active</option>
+				<option value="MEMORY">Memory</option>
+				<option value="UNKNOWN">Unknown</option>
+			</options>
+		</state>
+	</channel-type>
+</thing:thing-descriptions>

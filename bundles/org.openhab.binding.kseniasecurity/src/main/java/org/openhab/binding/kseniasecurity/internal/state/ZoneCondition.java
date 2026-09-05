@@ -10,25 +10,21 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  */
-package org.openhab.binding.kseniasecurity.internal.handler;
+package org.openhab.binding.kseniasecurity.internal.state;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 
 /**
- * Configuration for a zone Thing.
+ * Current real-time condition of an alarm zone, independent of whether the panel has generated an alarm event.
  *
  * @author Michele Pattera - Initial contribution
  */
 @NonNullByDefault
-public class KseniaZoneConfiguration {
-    public int id;
-
-    /**
-     * Checks whether the configured zone identifier is usable.
-     *
-     * @return {@code true} for a positive identifier
-     */
-    public boolean isValid() {
-        return id > 0;
-    }
+public enum ZoneCondition {
+    REST,
+    ALARM,
+    FAULT,
+    TAMPER,
+    ERROR,
+    UNKNOWN
 }

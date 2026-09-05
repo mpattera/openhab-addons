@@ -10,25 +10,20 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  */
-package org.openhab.binding.kseniasecurity.internal.handler;
+package org.openhab.binding.kseniasecurity.internal.state;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 
 /**
- * Configuration for a zone Thing.
+ * Bypass mode of an alarm zone.
  *
  * @author Michele Pattera - Initial contribution
  */
 @NonNullByDefault
-public class KseniaZoneConfiguration {
-    public int id;
-
-    /**
-     * Checks whether the configured zone identifier is usable.
-     *
-     * @return {@code true} for a positive identifier
-     */
-    public boolean isValid() {
-        return id > 0;
-    }
+public enum ZoneBypassMode {
+    NOT_BYPASSED,
+    AUTO_BYPASSED,
+    MANUAL_BYPASS_DURING_ARMING,
+    MANUAL_BYPASS,
+    UNKNOWN
 }

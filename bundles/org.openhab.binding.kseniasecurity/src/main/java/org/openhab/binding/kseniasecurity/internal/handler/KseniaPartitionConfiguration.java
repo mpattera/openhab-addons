@@ -14,10 +14,20 @@ package org.openhab.binding.kseniasecurity.internal.handler;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 
+/**
+ * Configuration for a partition Thing.
+ *
+ * @author Michele Pattera - Initial contribution
+ */
 @NonNullByDefault
 public class KseniaPartitionConfiguration {
     public int id;
 
+    /**
+     * Checks whether the configured partition identifier is usable.
+     *
+     * @return {@code true} for a positive identifier
+     */
     public boolean isValid() {
         return id > 0;
     }

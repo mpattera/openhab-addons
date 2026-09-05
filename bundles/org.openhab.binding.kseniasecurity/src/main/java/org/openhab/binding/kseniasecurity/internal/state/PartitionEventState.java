@@ -10,25 +10,19 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  */
-package org.openhab.binding.kseniasecurity.internal.handler;
+package org.openhab.binding.kseniasecurity.internal.state;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 
 /**
- * Configuration for a zone Thing.
+ * Alarm or tamper state of an alarm partition.
  *
  * @author Michele Pattera - Initial contribution
  */
 @NonNullByDefault
-public class KseniaZoneConfiguration {
-    public int id;
-
-    /**
-     * Checks whether the configured zone identifier is usable.
-     *
-     * @return {@code true} for a positive identifier
-     */
-    public boolean isValid() {
-        return id > 0;
-    }
+public enum PartitionEventState {
+    INACTIVE,
+    ACTIVE,
+    MEMORY,
+    UNKNOWN
 }

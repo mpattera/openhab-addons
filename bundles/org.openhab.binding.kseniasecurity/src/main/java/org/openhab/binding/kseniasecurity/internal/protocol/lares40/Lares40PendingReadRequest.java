@@ -10,25 +10,18 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  */
-package org.openhab.binding.kseniasecurity.internal.handler;
+package org.openhab.binding.kseniasecurity.internal.protocol.lares40;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 
 /**
- * Configuration for a zone Thing.
+ * A sent {@code READ} command waiting for its correlated response.
  *
+ * @param commandId the protocol command identifier assigned by the binding
+ * @param operation the binding operation that initiated the read
+ * @param request the requested data set
  * @author Michele Pattera - Initial contribution
  */
 @NonNullByDefault
-public class KseniaZoneConfiguration {
-    public int id;
-
-    /**
-     * Checks whether the configured zone identifier is usable.
-     *
-     * @return {@code true} for a positive identifier
-     */
-    public boolean isValid() {
-        return id > 0;
-    }
+public record Lares40PendingReadRequest(int commandId, Lares40ReadOperation operation, Lares40ReadRequest request) {
 }

@@ -15,20 +15,12 @@ package org.openhab.binding.kseniasecurity.internal.handler;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 
 /**
- * Configuration for a zone Thing.
+ * Authentication roles offered by the binding, independently of their wire representation.
  *
  * @author Michele Pattera - Initial contribution
  */
 @NonNullByDefault
-public class KseniaZoneConfiguration {
-    public int id;
-
-    /**
-     * Checks whether the configured zone identifier is usable.
-     *
-     * @return {@code true} for a positive identifier
-     */
-    public boolean isValid() {
-        return id > 0;
-    }
+public enum KseniaLoginType {
+    USER,
+    SUPERVISOR
 }
